@@ -8,23 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.CompressorSubsystem;
 
-public class TeleDrive extends Command {
+public class CompressorCommand extends Command {
 
 	// Fields
 
-	private Chassis chassis;
+	private static final double MIN_PRESSURE = 40.0;
+	private static final double MAX_PRESSURE = 120.0;
 
-	// Constructor
+	private CompressorSubsystem compressorSubsystem;
 
-	/**
-	 * The constructor of the class
-	 */
-	public TeleDrive() {
-		chassis=Chassis.getInstance();
-		requires(chassis);
+	public CompressorCommand() {
+		compressorSubsystem = CompressorSubsystem.getInstance();
+		requires(compressorSubsystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -33,11 +30,18 @@ public class TeleDrive extends Command {
 	}
 
 	/**
-	 * Set the speed of the talons according to the joystick
+	 * Turn on and off the compressor: Turn on if pressure below/equal MIN_PRESSURE
+	 * and the compressor is closed Turn off if pressure under/equal MAX_PRESSURE
+	 * and the compressor is open
 	 */
 	@Override
 	protected void execute() {
-		chassis.set(Robot.oi.getJoystickX(), Robot.oi.getJoystickZ());
+		double pressure = compressorSubsystem.getPressure();
+		boolean working = compressorSubsystem.isWorking();
+		if (pressure >= MAX_PRESSURE && working)
+			compressorSubsystem.stop();
+		else if (pressure <= MIN_PRESSURE && !working)
+			compressorSubsystem.start();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -49,7 +53,7 @@ public class TeleDrive extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		chassis.set(0.0, 0.0);
+		compressorSubsystem.stop();
 	}
 
 	// Called when another command which requires one or more of the same

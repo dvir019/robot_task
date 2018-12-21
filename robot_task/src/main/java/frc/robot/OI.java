@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -23,14 +24,18 @@ public class OI {
 	private XboxController xbox;
 	private Joystick joystick;
 
+	private JoystickButton shifterButton;
+
 	// Constructor and SingleTon
 
 	/**
 	 * The constructor of the class
 	 */
 	private OI() {
-		joystick=new Joystick(RobotMap.JOYSTICK);
-		xbox=new XboxController(RobotMap.XBOX);
+		joystick = new Joystick(RobotMap.JOYSTICK);
+		xbox = new XboxController(RobotMap.XBOX);
+
+		shifterButton = new JoystickButton(joystick, 1);
 	}
 
 	/**
@@ -45,4 +50,22 @@ public class OI {
 	}
 
 	// Methods
+
+	/**
+	 * Get the X axis of the joystick
+	 * 
+	 * @return The X axis of the joystick
+	 */
+	public double getJoystickX() {
+		return -joystick.getX();
+	}
+
+	/**
+	 * Get the Z axis of the joystick
+	 * 
+	 * @return The Z axis of the joystick
+	 */
+	public double getJoystickZ() {
+		return joystick.getZ();
+	}
 }

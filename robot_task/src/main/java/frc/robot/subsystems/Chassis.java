@@ -66,7 +66,7 @@ public class Chassis extends Subsystem {
 
 	// Methods
 
-	public void setTalons(double spped, double rotation){
+	public void set(double spped, double rotation){
 		differentialDrive.arcadeDrive(spped, rotation);
 	}
 
