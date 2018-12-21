@@ -10,6 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.DoubleSolCommand;
+import frc.robot.commands.GearGripperCommand;
+import frc.robot.subsystems.GearsSubsystem;
+import frc.robot.subsystems.ShifterSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,6 +29,9 @@ public class OI {
 	private Joystick joystick;
 
 	private JoystickButton shifterButton;
+	private JoystickButton gearIn;
+	private JoystickButton gearOut;
+	private JoystickButton gearPush;
 
 	// Constructor and SingleTon
 
@@ -36,6 +43,16 @@ public class OI {
 		xbox = new XboxController(RobotMap.XBOX);
 
 		shifterButton = new JoystickButton(joystick, 1);
+		shifterButton.whenPressed(new DoubleSolCommand(ShifterSubsystem.getInstance()));
+
+		gearIn = new JoystickButton(xbox, 1);  // A
+		gearIn.whileHeld(new GearGripperCommand(true));
+
+		gearOut = new JoystickButton(xbox, 2);  // B
+		gearOut.whileHeld(new GearGripperCommand(false));
+
+		gearPush = new JoystickButton(xbox, 3);  // X
+		gearPush.whenPressed(new DoubleSolCommand(GearsSubsystem.getInstance()));
 	}
 
 	/**

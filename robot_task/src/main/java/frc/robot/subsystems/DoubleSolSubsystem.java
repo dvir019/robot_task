@@ -17,8 +17,6 @@ public abstract class DoubleSolSubsystem extends Subsystem {
 
 	// Fields
 
-	private static DoubleSolSubsystem instance = null;
-
 	private DoubleSol doubleSol;
 
 	// Constructor

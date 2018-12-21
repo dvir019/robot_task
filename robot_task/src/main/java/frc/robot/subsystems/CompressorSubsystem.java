@@ -53,13 +53,17 @@ public class CompressorSubsystem extends Subsystem {
 	// Methods
 
 	/**
+	 * Get the pressure in the compressor
 	 * 
-	 * @return
+	 * @return The pressure in the compressor
 	 */
 	public double getPressure() {
 		return 250 * (((double) pressureSensor.getValue()) / Vcc) - 25;
 	}
 
+	/**
+	 * Start the compressor
+	 */
 	public void start() {
 		compressor.start();
 
@@ -67,6 +71,9 @@ public class CompressorSubsystem extends Subsystem {
 		SmartDashboard.putBoolean("Compressor", true);
 	}
 
+	/**
+	 * Stop the compressor
+	 */
 	public void stop() {
 		compressor.stop();
 
@@ -74,6 +81,11 @@ public class CompressorSubsystem extends Subsystem {
 		SmartDashboard.putBoolean("Compressor", false);
 	}
 
+	/**
+	 * Get the state of the compressor
+	 * 
+	 * @return true if it's working, else false
+	 */
 	public boolean isWorking() {
 		return compressor.enabled();
 	}

@@ -14,37 +14,50 @@ public class GearGripperCommand extends Command {
 
 	// Fields
 	private GearsSubsystem gearsSubsystem;
+	private boolean enterGear;
 
-  public GearGripperCommand() {
-	gearsSubsystem=GearsSubsystem.getInstance();
-	requires(gearsSubsystem);
-  }
+	/**
+	 * The constructor of the class
+	 * 
+	 * @param enterGear Indicate if the gear should get in (true) or out (false)
+	 */
+	public GearGripperCommand(boolean enterGear) {
+		gearsSubsystem = GearsSubsystem.getInstance();
+		requires(gearsSubsystem);
+	}
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+	// Called just before this Command runs the first time
+	@Override
+	protected void initialize() {
+	}
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-	  gearsSubsystem.setSpark(1.0);
-  }
+	// Called repeatedly when this Command is scheduled to run
+	@Override
+	protected void execute() {
+		gearsSubsystem.setSpark(enterGear ? 1.0 : -1.0);
+	}
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+	/**
+	 * Checks if the micro-switch is closed or not, and if enterGear is true. If
+	 * they both are, it's return true, else false.
+	 * 
+	 * @return True if the micro-switch is closed and enterGear is true, else false
+	 */
+	@Override
+	protected boolean isFinished() {
+		return gearsSubsystem.getSwitch() && enterGear;
+	}
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
+	// Called once after isFinished returns true
+	@Override
+	protected void end() {
+		gearsSubsystem.setSpark(0.0);
+	}
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	@Override
+	protected void interrupted() {
+		end();
+	}
 }

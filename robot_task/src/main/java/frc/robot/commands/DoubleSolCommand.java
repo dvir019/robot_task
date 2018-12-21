@@ -17,20 +17,21 @@ public class DoubleSolCommand extends InstantCommand {
 
 	// Fields
 
-	private DoubleSolSubsystem subsystem;
+	private DoubleSolSubsystem doubleSolSubsystem;
 
 	/**
-	 * Add your docs here.
+	 * The constructor of the class
 	 */
-	public DoubleSolCommand(DoubleSolSubsystem subsystem) {
+	public DoubleSolCommand(DoubleSolSubsystem doubleSolSubsystem) {
 		super();
-		this.subsystem = subsystem;
+		this.doubleSolSubsystem = doubleSolSubsystem;
+		requires(this.doubleSolSubsystem);
 	}
 
 	// Called once when the command executes
 	@Override
 	protected void initialize() {
-		subsystem.swap();
+		doubleSolSubsystem.swap();
 	}
 
 }

@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
@@ -52,12 +53,15 @@ public class GearsSubsystem extends DoubleSolSubsystem {
 	// Methods
 
 	/**
-	 * Get the state of the micro-switch
+	 * Get the state of the micro-switch.
+	 * In addition, put it in the SmartDashboard.
 	 * 
 	 * @return The state of the micro-switch
 	 */
 	public boolean getSwitch() {
-		return microSwitch.get();
+		boolean state = microSwitch.get();
+		SmartDashboard.putBoolean("Gear's switch", state);
+		return state;
 	}
 
 	/**

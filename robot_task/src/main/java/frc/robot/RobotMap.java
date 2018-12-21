@@ -41,6 +41,19 @@ public class RobotMap {
 	// GearsSubsystem - DIO
 	public static final int GEARS_SWITCH_PORT = 1;
 
+
+
+	// ElevatorSubsystem - PWM
+	public static final int ELEVATOR_TALON = 5;
+
+	// ElevatorSubsystem - PCM
+	public static final int ELEVATOR_SOL_OPEN=5;
+	public static final int ELEVATOR_SOL_CLOSE = 6;
+
+	// ElevatorSubsystem - DIO
+	public static final int ELEVATOR_UPPER_SWITCH = 2;
+	public static final int ELEVATOR_LOWER_SWITCH = 3;
+
 	
 
 	// OI - Driver station
