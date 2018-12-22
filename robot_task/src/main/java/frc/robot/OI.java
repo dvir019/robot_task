@@ -7,11 +7,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.CollectBalls;
 import frc.robot.commands.DoubleSolCommand;
 import frc.robot.commands.GearGripperCommand;
+import frc.robot.commands.OverrideGripper;
+import frc.robot.commands.Shuffle;
+import frc.robot.subsystems.BallsCollector;
 import frc.robot.subsystems.GearsSubsystem;
 import frc.robot.subsystems.ShifterSubsystem;
 
@@ -32,6 +37,10 @@ public class OI {
 	private JoystickButton gearIn;
 	private JoystickButton gearOut;
 	private JoystickButton gearPush;
+	private JoystickButton shuffle;
+	private JoystickButton gripperOverride;
+	private JoystickButton ballsCollector;
+	private JoystickButton openCloseBallsCollector;
 
 	// Constructor and SingleTon
 
@@ -53,6 +62,18 @@ public class OI {
 
 		gearPush = new JoystickButton(xbox, 3);  // X
 		gearPush.whenPressed(new DoubleSolCommand(GearsSubsystem.getInstance()));
+
+		shuffle = new JoystickButton(xbox, 4); // Y
+		shuffle.whileHeld(new Shuffle());
+
+		gripperOverride = new JoystickButton(xbox, 6); // BumperRight
+		gripperOverride.whenPressed(new OverrideGripper());
+
+		ballsCollector = new JoystickButton(xbox, 5);  //BumperLeft
+		ballsCollector.whileHeld(new CollectBalls());
+
+		openCloseBallsCollector = new JoystickButton(xbox, 7);  // Back
+		openCloseBallsCollector.whenPressed(new DoubleSolCommand(BallsCollector.getInstance()));
 	}
 
 	/**
@@ -84,5 +105,13 @@ public class OI {
 	 */
 	public double getJoystickZ() {
 		return joystick.getZ();
+	}
+
+	/**
+	 * Get the X axis of the right joystick of the Xbox controller
+	 * @return The X axis of the right joystick of the Xbox controller
+	 */
+	public double getXboxRightJoystickY() {
+		return xbox.getY(GenericHID.Hand.kRight);
 	}
 }

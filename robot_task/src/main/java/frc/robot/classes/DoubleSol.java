@@ -49,6 +49,13 @@ public class DoubleSol {
 			reverse();
 		else
 			forward();
-		
+	}
+
+	/**
+	 * Get if the sol is open or not
+	 * @return True if it's open, else false
+	 */
+	public boolean isOpen(){
+		return getState() == Value.kForward;
 	}
 }

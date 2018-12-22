@@ -15,13 +15,13 @@ public class RobotMap {
 	public static final int BOTTOM_RIGHT_TALON = 2;
 	public static final int BOTTOM_LEFT_TALON = 3;
 
-	
+// ********************************************************************************
 
 	// ShifterSubsystem - PCM
 	public static final int SHIFTER_OPEN_PORT = 0;
 	public static final int SHIFTER_CLOSE_PORT = 1;
 
-
+// ********************************************************************************
 
 	// CompressorSubsystem - PCM
 	public static final int COMPRESSOR = 2;
@@ -29,7 +29,7 @@ public class RobotMap {
 	// CompressorSubsystem - AI
 	public static final int PRESSURE_SENSOR = 0;
 
-
+// ********************************************************************************
 
 	// GearsSubsystem - PWM
 	public static final int GEARS_SPARK_PORT = 4;
@@ -41,7 +41,7 @@ public class RobotMap {
 	// GearsSubsystem - DIO
 	public static final int GEARS_SWITCH_PORT = 1;
 
-
+// ********************************************************************************
 
 	// ElevatorSubsystem - PWM
 	public static final int ELEVATOR_TALON = 5;
@@ -53,8 +53,33 @@ public class RobotMap {
 	// ElevatorSubsystem - DIO
 	public static final int ELEVATOR_UPPER_SWITCH = 2;
 	public static final int ELEVATOR_LOWER_SWITCH = 3;
+	public static final int ELEVATOR_ENCODER_1 = 4;
+	public static final int ELEVATOR_ENCODER_2 = 5;
 
+// ********************************************************************************
+
+	// BallsShootingSubsystem - PWM
+	public static final int SHOOTER_SPARK = 6;
+
+	// BallsShootingSubsystem - DIO
+	public static final int SHOOTER_ENCODER_1 = 4;
+	public static final int SHOOTER_ENCODER_2 = 5;
+
+// ********************************************************************************
 	
+		// Shuffler - PWM
+		public static final int SHUFFLER_SPARK = 7;
+
+// ********************************************************************************
+	
+		// BallsCollector - PWM
+		public static final int BALLS_COLLECTOR_SPARK = 8;
+
+		// BallsCollector - PCM
+		public static final int BALLS_COLLECTOR_OPEN = 7;
+		public static final int BALLS_COLLECTOR_CLOSE = 8;
+
+// ********************************************************************************
 
 	// OI - Driver station
 	public static final int JOYSTICK = 1;

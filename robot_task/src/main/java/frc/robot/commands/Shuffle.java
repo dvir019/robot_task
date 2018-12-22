@@ -8,22 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.GearsSubsystem;
+import frc.robot.subsystems.Shuffler;
 
-public class GearGripperCommand extends Command {
+public class Shuffle extends Command {
 
 	// Fields
-	private GearsSubsystem gearsSubsystem;
-	private boolean enterGear;
 
-	/**
-	 * The constructor of the class
-	 * 
-	 * @param enterGear Indicate if the gear should get in (true) or out (false)
-	 */
-	public GearGripperCommand(boolean enterGear) {
-		gearsSubsystem = GearsSubsystem.getInstance();
-		requires(gearsSubsystem);
+	private Shuffler shuffler;
+
+	public Shuffle() {
+		shuffler = Shuffler.getInstance();
+		requires(shuffler);
 	}
 
 	// Called just before this Command runs the first time
@@ -34,28 +29,19 @@ public class GearGripperCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		gearsSubsystem.setSpark(enterGear ? 1.0 : -1.0);
+		shuffler.set(1.0);
 	}
 
-	/**
-	 * Checks if the micro-switch is closed or not, and if enterGear is true. If
-	 * they both are, it's return true, else false.
-	 * 
-	 * In addition, if override mode is activated, it returns false.
-	 * 
-	 * @return True if the micro-switch is closed and enterGear is true, else false
-	 */
+	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		if (gearsSubsystem.getOverride())
-			return false;
-		return gearsSubsystem.getSwitch() && enterGear;
+		return false;
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		gearsSubsystem.setSpark(0.0);
+		shuffler.set(0.0);
 	}
 
 	// Called when another command which requires one or more of the same

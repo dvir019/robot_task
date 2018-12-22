@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
@@ -25,6 +26,7 @@ public class ElevatorSubsystem extends DoubleSolSubsystem {
 	private WPI_TalonSRX talon;
 	private DigitalInput upperSwitch;
 	private DigitalInput lowerSwitch;
+	private Encoder encoder;
 
 	// Constructor and SingleTon
 
@@ -39,6 +41,8 @@ public class ElevatorSubsystem extends DoubleSolSubsystem {
 
 		upperSwitch = new DigitalInput(RobotMap.ELEVATOR_UPPER_SWITCH);
 		lowerSwitch = new DigitalInput(RobotMap.ELEVATOR_LOWER_SWITCH);
+
+		encoder = new Encoder(RobotMap.ELEVATOR_ENCODER_1, RobotMap.ELEVATOR_ENCODER_2);
 	}
 
 	/**
@@ -84,6 +88,13 @@ public class ElevatorSubsystem extends DoubleSolSubsystem {
 	 */
 	public void set(double speed) {
 		talon.set(speed);
+	}
+
+	/**
+	 * Reset The encoder
+	 */
+	public void resetEncoder(){
+		encoder.reset();
 	}
 
 	@Override

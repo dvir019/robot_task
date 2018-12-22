@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+import frc.robot.classes.Methods;
 
 /**
  * Add your docs here.
@@ -20,11 +21,11 @@ public class GearsSubsystem extends DoubleSolSubsystem {
 	// Fields
 
 	private static GearsSubsystem instance = null;
-	private static final double MAX_SPEED = 1.0;
-	private static final double MIN_SPEED = -1.0;
 
 	private DigitalInput microSwitch;
 	private Spark spark;
+
+	private boolean override = false;
 
 	// Constructor and SingleTon
 
@@ -37,6 +38,8 @@ public class GearsSubsystem extends DoubleSolSubsystem {
 		microSwitch = new DigitalInput(RobotMap.GEARS_SWITCH_PORT);
 		spark = new Spark(RobotMap.GEARS_SPARK_PORT);
 		spark.setSafetyEnabled(true);
+
+		SmartDashboard.putBoolean("Override Gripper", override);
 	}
 
 	/**
@@ -70,12 +73,26 @@ public class GearsSubsystem extends DoubleSolSubsystem {
 	 * @param speed The new speed
 	 */
 	public void setSpark(double speed) {
-		if (speed > MAX_SPEED)
-			speed = MAX_SPEED;
-		else if (speed < MIN_SPEED)
-			speed = MIN_SPEED;
-		spark.set(speed);
+		spark.set(Methods.normalizeSpeed(speed));
 	}
+
+	/**
+	 * Change the value of the override field from true to false and vice versa
+	 */
+	public void swapOverride() {
+		override=!override;
+		SmartDashboard.putBoolean("Override Gripper", override);
+	}
+
+	/**
+	 * Get the override field
+	 * 
+	 * @return The override field
+	 */
+	public boolean getOverride() {
+		return override;
+	}
+
 
 	@Override
 	public void initDefaultCommand() {

@@ -7,46 +7,55 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.classes.DoubleSol;
+import frc.robot.RobotMap;
+import frc.robot.classes.Methods;
 
 /**
  * Add your docs here.
  */
-public abstract class DoubleSolSubsystem extends Subsystem {
+public class Shuffler extends Subsystem {
 
 	// Fields
 
-	private DoubleSol doubleSol;
+	private static Shuffler instance = null;
 
-	// Constructor
+	private Spark spark;
+
+	// Constructor and SingleTon
 
 	/**
 	 * The constructor of the class
 	 */
-	protected DoubleSolSubsystem(int openPort, int closePort) {
-		doubleSol = new DoubleSol(openPort, closePort);
+	private Shuffler() {
+		spark = new Spark(RobotMap.SHUFFLER_SPARK);
 	}
 
+	/**
+	 * SingleTon for the class
+	 * 
+	 * @return An instance of the class
+	 */
+	public static Shuffler getInstance() {
+		if (instance == null)
+			instance = new Shuffler();
+		return instance;
+	}
 
 	// Methods
 
 	/**
-	 * Swap the doubleSol's state
+	 * Set the speed of the spark
+	 * @param speed The new speed
 	 */
-	public void swap(){
-		doubleSol.swap();
-	}
-
-	/**
-	 * Get if the sol is open or not
-	 * @return True if it's open, else false
-	 */
-	public boolean isOpen(){
-		return doubleSol.isOpen();
+	public void set(double speed) {
+		spark.set(Methods.normalizeSpeed(speed));
 	}
 
 	@Override
 	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
 	}
 }
