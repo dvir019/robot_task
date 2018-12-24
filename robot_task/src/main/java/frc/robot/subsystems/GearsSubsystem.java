@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.classes.Methods;
+import frc.robot.utils.Methods;
 
 /**
  * Add your docs here.
@@ -40,6 +40,7 @@ public class GearsSubsystem extends DoubleSolSubsystem {
 		spark.setSafetyEnabled(true);
 
 		SmartDashboard.putBoolean("Override Gripper", override);
+		SmartDashboard.putBoolean("Gear's switch", microSwitch.get());
 	}
 
 	/**
@@ -56,8 +57,7 @@ public class GearsSubsystem extends DoubleSolSubsystem {
 	// Methods
 
 	/**
-	 * Get the state of the micro-switch.
-	 * In addition, put it in the SmartDashboard.
+	 * Get the state of the micro-switch. In addition, put it in the SmartDashboard.
 	 * 
 	 * @return The state of the micro-switch
 	 */
@@ -80,7 +80,7 @@ public class GearsSubsystem extends DoubleSolSubsystem {
 	 * Change the value of the override field from true to false and vice versa
 	 */
 	public void swapOverride() {
-		override=!override;
+		override = !override;
 		SmartDashboard.putBoolean("Override Gripper", override);
 	}
 
@@ -92,7 +92,6 @@ public class GearsSubsystem extends DoubleSolSubsystem {
 	public boolean getOverride() {
 		return override;
 	}
-
 
 	@Override
 	public void initDefaultCommand() {

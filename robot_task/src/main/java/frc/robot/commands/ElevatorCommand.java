@@ -50,6 +50,7 @@ public class ElevatorCommand extends Command {
 		if (upperSwitch) // Upper switch closed
 			return speed > 0.0 ? 0.0 : speed;
 		// Lower switch closed
+		elevatorSubsystem.resetEncoder();
 		return speed < 0 ? 0.0 : speed;
 	}
 

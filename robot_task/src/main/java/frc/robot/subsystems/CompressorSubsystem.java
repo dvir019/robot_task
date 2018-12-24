@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.commands.CompressorCommand;
+import frc.robot.commands.Compresse;
 
 /**
  * Add your docs here.
@@ -33,7 +33,7 @@ public class CompressorSubsystem extends Subsystem {
 	 * The constructor of the class
 	 */
 	private CompressorSubsystem() {
-		compressor = new Compressor(RobotMap.COMPRESSOR);
+		compressor = new Compressor();
 		compressor.setClosedLoopControl(false);
 
 		pressureSensor = new AnalogInput(RobotMap.PRESSURE_SENSOR);
@@ -92,6 +92,6 @@ public class CompressorSubsystem extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new CompressorCommand());
+		setDefaultCommand(new Compresse());
 	}
 }

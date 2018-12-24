@@ -7,10 +7,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
@@ -23,10 +23,10 @@ public class ElevatorSubsystem extends DoubleSolSubsystem {
 
 	private static ElevatorSubsystem instance = null;
 
-	private WPI_TalonSRX talon;
+	private WPI_TalonSRX talon1;
+	private WPI_TalonSRX talon2;
 	private DigitalInput upperSwitch;
 	private DigitalInput lowerSwitch;
-	private Encoder encoder;
 
 	// Constructor and SingleTon
 
@@ -36,13 +36,19 @@ public class ElevatorSubsystem extends DoubleSolSubsystem {
 	private ElevatorSubsystem() {
 		super(RobotMap.ELEVATOR_SOL_OPEN, RobotMap.ELEVATOR_SOL_CLOSE);
 
-		talon = new WPI_TalonSRX(RobotMap.ELEVATOR_TALON);
-		talon.setSafetyEnabled(true);
+		talon1 = new WPI_TalonSRX(RobotMap.ELEVATOR_TALON_1);
+		talon1.setSafetyEnabled(true);
+		talon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+
+		talon2 = new WPI_TalonSRX(RobotMap.ELEVATOR_TALON_2);
+		talon2.setSafetyEnabled(true);
 
 		upperSwitch = new DigitalInput(RobotMap.ELEVATOR_UPPER_SWITCH);
 		lowerSwitch = new DigitalInput(RobotMap.ELEVATOR_LOWER_SWITCH);
 
-		encoder = new Encoder(RobotMap.ELEVATOR_ENCODER_1, RobotMap.ELEVATOR_ENCODER_2);
+		// SmartDashboard
+		SmartDashboard.putBoolean("Upper elevator switch", upperSwitch.get());
+		SmartDashboard.putBoolean("Lower elevator switch", lowerSwitch.get());
 	}
 
 	/**
@@ -84,17 +90,19 @@ public class ElevatorSubsystem extends DoubleSolSubsystem {
 
 	/**
 	 * Set the speed of the talon
+	 * 
 	 * @param speed The new speed
 	 */
 	public void set(double speed) {
-		talon.set(speed);
+		talon1.set(speed);
+		talon2.set(speed);
 	}
 
 	/**
 	 * Reset The encoder
 	 */
 	public void resetEncoder(){
-		encoder.reset();
+		talon1.setSelectedSensorPosition(0, 0, 0);
 	}
 
 	@Override

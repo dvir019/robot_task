@@ -1,4 +1,4 @@
-package frc.robot.classes;
+package frc.robot.utils;
 
 public class Methods {
 	private static final double MAX_SPEED = 1.0;

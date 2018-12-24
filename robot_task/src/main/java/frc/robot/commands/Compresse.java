@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.CompressorSubsystem;
 
-public class CompressorCommand extends Command {
+public class Compresse extends Command {
 
 	// Fields
 
@@ -19,7 +19,7 @@ public class CompressorCommand extends Command {
 
 	private CompressorSubsystem compressorSubsystem;
 
-	public CompressorCommand() {
+	public Compresse() {
 		compressorSubsystem = CompressorSubsystem.getInstance();
 		requires(compressorSubsystem);
 	}

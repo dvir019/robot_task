@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
 import frc.robot.RobotMap;
-import frc.robot.classes.Methods;
+import frc.robot.utils.Methods;
 
 /**
  * Add your docs here.

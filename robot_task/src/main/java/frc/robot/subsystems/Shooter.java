@@ -7,11 +7,11 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Spark;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import frc.robot.RobotMap;
-import frc.robot.classes.Methods;
 
 /**
  * Add your docs here.
@@ -24,11 +24,13 @@ public class Shooter extends PIDSubsystem {
 
 	private static final double Kp = 1;
 	private static final double Ki = 1;
-	private static final double Kd = 10;
-	private static final double TARGET_SPEED = 1;
+	private static final double Kd = 1;
+	private static final double TOLERANCE = 0.05;
 
-	private Spark spark;
-	private Encoder encoder;
+	public static final double TARGET_SPEED = 10;
+	public static final double STOP_SPEED = 0;
+
+	private WPI_TalonSRX talon;
 
 	// Constructor and SingleTon
 
@@ -38,17 +40,19 @@ public class Shooter extends PIDSubsystem {
 	public Shooter() {
 		// Intert a subsystem name and PID values here
 		super("BallsShootingSubsystem", Kp, Ki, Kd);
-		
-		spark = new Spark(RobotMap.SHOOTER_SPARK);
-		encoder = new Encoder(RobotMap.SHOOTER_ENCODER_1, RobotMap.SHOOTER_ENCODER_2);
+
+		talon = new WPI_TalonSRX(RobotMap.SHOOTER_TALON_SRX);
+		talon.setSafetyEnabled(true);
+		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
 		// Use these to get going:
 		// setSetpoint() - Sets where the PID controller should move the system
 		// to
 		// enable() - Enables the PID controller.
 
-		setSetpoint(TARGET_SPEED);
-		setAbsoluteTolerance(0.05);
+		setSetpoint(STOP_SPEED);
+		setAbsoluteTolerance(TOLERANCE);
+		enable();
 	}
 
 	/**
@@ -64,19 +68,8 @@ public class Shooter extends PIDSubsystem {
 
 	// Methods
 
-	public void start(){
-		enable();
-	}
-
-	public void stop(){
-		disable();
-		spark.set(0.0);
-	}
-
 	@Override
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 	}
 
 	@Override
@@ -85,7 +78,7 @@ public class Shooter extends PIDSubsystem {
 		// e.g. a sensor, like a potentiometer:
 		// yourPot.getAverageVoltage() / kYourMaxVoltage;
 
-		return (double)encoder.get();
+		return (double) talon.getSelectedSensorPosition(0);
 	}
 
 	@Override
@@ -93,6 +86,6 @@ public class Shooter extends PIDSubsystem {
 		// Use output to drive your system, like a motor
 		// e.g. yourMotor.set(output);
 
-		spark.set(Methods.normalizeSpeed(output));
+		talon.set(output);
 	}
 }

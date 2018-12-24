@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.classes.DoubleSol;
+import frc.robot.utils.DoubleSol;
 
 /**
  * Add your docs here.

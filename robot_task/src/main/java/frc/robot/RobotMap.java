@@ -23,9 +23,6 @@ public class RobotMap {
 
 // ********************************************************************************
 
-	// CompressorSubsystem - PCM
-	public static final int COMPRESSOR = 2;
-
 	// CompressorSubsystem - AI
 	public static final int PRESSURE_SENSOR = 0;
 
@@ -44,7 +41,8 @@ public class RobotMap {
 // ********************************************************************************
 
 	// ElevatorSubsystem - PWM
-	public static final int ELEVATOR_TALON = 5;
+	public static final int ELEVATOR_TALON_1 = 5;
+	public static final int ELEVATOR_TALON_2 = 6;
 
 	// ElevatorSubsystem - PCM
 	public static final int ELEVATOR_SOL_OPEN=5;
@@ -53,13 +51,11 @@ public class RobotMap {
 	// ElevatorSubsystem - DIO
 	public static final int ELEVATOR_UPPER_SWITCH = 2;
 	public static final int ELEVATOR_LOWER_SWITCH = 3;
-	public static final int ELEVATOR_ENCODER_1 = 4;
-	public static final int ELEVATOR_ENCODER_2 = 5;
 
 // ********************************************************************************
 
 	// BallsShootingSubsystem - PWM
-	public static final int SHOOTER_SPARK = 6;
+	public static final int SHOOTER_TALON_SRX = 7;
 
 	// BallsShootingSubsystem - DIO
 	public static final int SHOOTER_ENCODER_1 = 4;
@@ -68,12 +64,12 @@ public class RobotMap {
 // ********************************************************************************
 	
 		// Shuffler - PWM
-		public static final int SHUFFLER_SPARK = 7;
+		public static final int SHUFFLER_SPARK = 8;
 
 // ********************************************************************************
 	
 		// BallsCollector - PWM
-		public static final int BALLS_COLLECTOR_SPARK = 8;
+		public static final int BALLS_COLLECTOR_SPARK = 9;
 
 		// BallsCollector - PCM
 		public static final int BALLS_COLLECTOR_OPEN = 7;
